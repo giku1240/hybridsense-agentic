@@ -1,0 +1,51 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Large Datasets
+references/WESAD/
+references/resilient_data/
+references/Human and LLM Mental Health Conversations/
+references/*.zip
+references/*.csv
+references/*.pdf
+
+# Keep the folder but ignore contents
+references/*
+!references/README.md
+!references/rag_data/
+
+# Models and logs
+models/
+logs/
+*.zip
+*.bin
+*.pth
+*.pt
+
+# Data outputs (Processed)
+# Usually we ignore processed data, but if it's small and needed for the next step, we could keep it.
+# For now, let's ignore to be safe and let the user re-generate if needed, 
+# but the user said "training required files", so maybe I should keep the SFT jsonl.
+# Let's keep data/processed and data/real_splits as they are small (~12MB).
+# But avoid accidental large files there.
+# data/processed/*.jsonl
+# data/processed/*.csv
+
+# Local git/config
+.vscode/
+.idea/
+.gemini/
+MEMORY.md

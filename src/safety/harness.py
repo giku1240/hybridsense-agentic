@@ -2,6 +2,8 @@
 # from transformers import AutoModelForCausalLM, AutoTokenizer
 import re
 
+from src.safety.rl_policy import ThompsonSamplingIntervention
+
 class SafetySentry:
     """
     Chapter 5.1: 0.5B Sentry Model for Proactive Guardrails (Z-Score Upgraded).
@@ -35,10 +37,8 @@ class SafetySentry:
             alerts.append(f"CRITICAL_TACHYCARDIA (Z={hr_z:.1f})")
             
         # 2. JITAI Proactive Triggers (Sub-critical: 1.5 to 3.0 Std Devs)
-        if hrv_z < -2.0:
-            jitai_triggers.append(f"LOW_HRV_STRESS (Z={hrv_z:.1f})")
-        if wakeup_z > 2.0:
-            jitai_triggers.append(f"SEVERE_SLEEP_FRAGMENTATION (Z={wakeup_z:.1f})")
+        if hrv_z < -2.0 or hr_z > 2.0 or wakeup_z > 2.0:
+            jitai_triggers.append("PHYSIO_DEVIATION_DETECTED")
             
         if alerts:
             return {"status": "PHYSIO_ALERT", "alerts": alerts}
@@ -76,6 +76,7 @@ class AgentHarness:
     def __init__(self):
         self.sentry = SafetySentry()
         self.router = IntentRouter()
+        self.rl_policy = ThompsonSamplingIntervention()
 
     def process_query(self, user_text, user_vitals):
         safety_check = self.sentry.scan_text(user_text)
@@ -86,7 +87,7 @@ class AgentHarness:
         if mode == "CRISIS_ESCALATION":
             return self._emergency_response(safety_check, physio_check)
         elif mode == "PROACTIVE_JITAI":
-            return self._jitai_response(physio_check)
+            return self._jitai_response(user_vitals)
         
         return mode
 
@@ -97,14 +98,12 @@ class AgentHarness:
         response += "Please contact emergency services immediately."
         return response
         
-    def _jitai_response(self, physio_risk):
-        triggers = physio_risk.get('triggers', [])
-        response = "[PROACTIVE JITAI INITIATED] "
-        if any("HRV" in t for t in triggers):
-            response += "I'm detecting a significant drop in your Heart Rate Variability compared to your normal baseline. Shall we do a grounding exercise?"
-        elif any("SLEEP" in t for t in triggers):
-            response += "Your sleep data shows unusual fragmentation. Let's discuss some sleep hygiene techniques."
+    def _jitai_response(self, user_vitals):
+        # Use RL Policy (Thompson Sampling) to select the best intervention
+        arm_idx = self.rl_policy.select_arm(user_vitals)
+        response = self.rl_policy.get_intervention_text(arm_idx)
         return response
+
 
 if __name__ == "__main__":
     harness = AgentHarness()
