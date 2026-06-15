@@ -113,7 +113,7 @@ def train(config_dict=None, ablation_mode="full"):
         fp16=config['fp16'],
         logging_steps=config['logging_steps'],
         save_strategy=config['save_strategy'],
-        report_to="none",
+        report_to="wandb",
         remove_unused_columns=False
     )
 
