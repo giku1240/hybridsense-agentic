@@ -27,9 +27,9 @@ dora_training:
   target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
   use_dora: true  
 
-  # Hyperparameters
-  per_device_train_batch_size: 1
-  gradient_accumulation_steps: 16
+  # Hyperparameters (Adjusted for Tesla V100S 32GB)
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 4
   learning_rate: 2.0e-4
   num_train_epochs: 1
   max_steps: 50 # Set to -1 for full training
@@ -39,9 +39,12 @@ dora_training:
   logging_steps: 1
   save_strategy: "epoch"
   
-  # Quantization
-  load_in_4bit: false
+  # Quantization (Required for 7B model on 32GB VRAM)
+  load_in_4bit: true
   load_in_8bit: false
+  bnb_4bit_compute_dtype: "float16" # V100 uses FP16
+  bnb_4bit_quant_type: "nf4"
+  bnb_4bit_use_double_quant: true
 
 # Stage 2: PPO Action Policy (Phase 2)
 ppo_training:
