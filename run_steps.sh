@@ -10,6 +10,8 @@ echo "=== HybridSense-Agentic: Starting Training Pipeline Orchestrator ==="
 # Step 1: Environment Setup
 echo ""
 echo "--- Step 1: Checking/Installing Dependencies ---"
+# Set Hugging Face mirror to avoid connectivity issues (Errno 99)
+export HF_ENDPOINT="https://hf-mirror.com"
 pip install torch transformers peft datasets accelerate bitsandbytes gymnasium stable-baselines3 pandas numpy scipy sentencepiece wandb
 
 # Step 2: Configuration Check
