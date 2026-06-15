@@ -11,6 +11,10 @@ import argparse
 import logging
 from pathlib import Path
 
+
+# Set Hugging Face mirror to avoid connectivity issues
+os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"
+
 # Add project root to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
