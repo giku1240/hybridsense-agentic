@@ -15,8 +15,8 @@ use_dora: false  # Disabled for compatibility
 per_device_train_batch_size: 16
 gradient_accumulation_steps: 1
 learning_rate: 2.0e-4
-num_train_epochs: 1 # Reducing epochs to 1 for faster completion as requested
-max_steps: 50 # Adding max_steps to ensure completion within reasonable time
+num_train_epochs: 3 # Changed to 3 epochs for better convergence
+max_steps: -1 # Disabled max_steps so it trains for the full epochs
 lr_scheduler_type: "cosine"
 warmup_ratio: 0.1
 fp16: true

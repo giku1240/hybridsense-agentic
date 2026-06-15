@@ -31,8 +31,8 @@ dora_training:
   per_device_train_batch_size: 4
   gradient_accumulation_steps: 4
   learning_rate: 2.0e-4
-  num_train_epochs: 1
-  max_steps: 50 # Set to -1 for full training
+  num_train_epochs: 3
+  max_steps: -1 # Set to -1 for full training
   lr_scheduler_type: "cosine"
   warmup_ratio: 0.1
   fp16: true
