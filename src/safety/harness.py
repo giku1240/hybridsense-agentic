@@ -5,6 +5,10 @@ import re
 import yaml
 import os
 
+
+# Set Hugging Face mirror to avoid connectivity issues
+os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"
+
 from src.safety.rl_policy import PPOIntervention
 
 class SafetySentry:
