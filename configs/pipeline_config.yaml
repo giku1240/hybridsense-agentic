@@ -27,7 +27,7 @@ dora_training:
   target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
   use_dora: true  
 
-  # Hyperparameters (Adjusted for Tesla V100S 32GB)
+  # Hyperparameters (Adjusted for NVIDIA vGPU-32GB)
   per_device_train_batch_size: 4
   gradient_accumulation_steps: 4
   learning_rate: 2.0e-4
@@ -42,7 +42,7 @@ dora_training:
   # Quantization (Required for 7B model on 32GB VRAM)
   load_in_4bit: true
   load_in_8bit: false
-  bnb_4bit_compute_dtype: "float16" # V100 uses FP16
+  bnb_4bit_compute_dtype: "float16" # vGPU compatible
   bnb_4bit_quant_type: "nf4"
   bnb_4bit_use_double_quant: true
 
