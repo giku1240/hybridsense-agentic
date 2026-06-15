@@ -1,0 +1,176 @@
+2026-06-15 20:54:05,281 - INFO - === Starting HybridSense Training Pipeline [v1.0] ===
+2026-06-15 20:54:05,281 - INFO - --- Stage 0: Data Preparation ---
+2026-06-15 20:54:05,281 - INFO - Using existing vitals file at data/processed/deep_vitals_aligned.csv
+2026-06-15 20:54:05,282 - INFO - Using existing SFT dataset at data/processed/sft_train_data.jsonl
+2026-06-15 20:54:05,282 - INFO - --- Stage 1: DoRA Fine-Tuning (Phase 1) ---
+2026-06-15 20:54:12,288 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 20:54:13,732 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 20:54:14,658 - INFO - HTTP Request: GET https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 20:54:17,212 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 20:54:17,416 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-06-15 20:54:19,339 - INFO - HTTP Request: GET https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-06-15 20:54:22,630 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-06-15 20:54:23,388 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-06-15 20:54:28,052 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/vocab.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 20:54:34,021 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/vocab.json "HTTP/1.1 200 OK"
+2026-06-15 20:54:34,240 - INFO - HTTP Request: GET https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/vocab.json "HTTP/1.1 200 OK"
+2026-06-15 20:54:59,779 - WARNING - Error while downloading from https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/vocab.json: The read operation timed out
+Trying to resume download...
+2026-06-15 20:55:01,521 - INFO - HTTP Request: GET https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/vocab.json "HTTP/1.1 200 OK"
+2026-06-15 20:55:05,846 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/merges.txt "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 20:55:06,467 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/merges.txt "HTTP/1.1 200 OK"
+2026-06-15 20:55:07,122 - INFO - HTTP Request: GET https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/merges.txt "HTTP/1.1 200 OK"
+2026-06-15 20:55:09,441 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/tokenizer.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 20:55:09,617 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/tokenizer.json "HTTP/1.1 200 OK"
+2026-06-15 20:55:10,055 - INFO - HTTP Request: GET https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/tokenizer.json "HTTP/1.1 200 OK"
+2026-06-15 20:55:21,692 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/added_tokens.json "HTTP/1.1 404 Not Found"
+2026-06-15 20:55:22,021 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/special_tokens_map.json "HTTP/1.1 404 Not Found"
+2026-06-15 20:55:22,394 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-06-15 20:55:23,379 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct "HTTP/1.1 200 OK"
+2026-06-15 20:55:24,513 - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/json/json.py "HTTP/1.1 200 OK"
+2026-06-15 20:55:32,413 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 20:55:32,628 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 20:55:33,020 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+2026-06-15 20:55:34,937 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 20:55:35,120 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 20:55:37,882 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-06-15 20:55:39,340 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/model.safetensors.index.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 20:55:39,550 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/model.safetensors.index.json "HTTP/1.1 200 OK"
+2026-06-15 20:55:40,492 - INFO - HTTP Request: GET https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/model.safetensors.index.json "HTTP/1.1 200 OK"
+2026-06-15 20:55:40,718 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct/revision/main "HTTP/1.1 200 OK"
+2026-06-15 20:55:41,192 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/a09a35458c702b33eeacc393d103063234e8bc28/model-00001-of-00004.safetensors "HTTP/1.1 302 Found"
+2026-06-15 20:55:42,076 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/a09a35458c702b33eeacc393d103063234e8bc28/model-00002-of-00004.safetensors "HTTP/1.1 302 Found"
+2026-06-15 20:55:42,599 - INFO - HTTP Request: GET https://cas-bridge.xethub.hf.co/xet-bridge-us/66e81cbcd683a3f4e5291bbf/ddfa1ff25e39c57076e10f1a8b02cc96888ce69b0717f0d296c57b842695c965?Expires=1781531740&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jYXMtYnJpZGdlLnhldGh1Yi5oZi5jby94ZXQtYnJpZGdlLXVzLzY2ZTgxY2JjZDY4M2EzZjRlNTI5MWJiZi9kZGZhMWZmMjVlMzljNTcwNzZlMTBmMWE4YjAyY2M5Njg4OGNlNjliMDcxN2YwZDI5NmM1N2I4NDI2OTVjOTY1KiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc4MTUzMTc0MH19fV19&Signature=MEUCIQDIqAa8hInA9PQxnokgSyc45qOjMzgcESMdIQab7DmEAQIgclSndy%7EkV4TR-mb006jj-btp7prvc2WfLgjAIdG-q2w_&Key-Pair-Id=K1LYXO563TGWFU&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model-00001-of-00004.safetensors%3B+filename%3D%22model-00001-of-00004.safetensors%22%3B&X-Xet-Cas-Uid=62171e3b6a99db28e0b3159d&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=cas%2F20260615%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260615T125540Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=5beca2e683c4b611a2a4c3acd64ecc70c4cf8972cafb71d1ef9160de21b1fb83 "HTTP/1.1 200 OK"
+2026-06-15 20:55:42,959 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/a09a35458c702b33eeacc393d103063234e8bc28/model-00003-of-00004.safetensors "HTTP/1.1 302 Found"
+2026-06-15 20:55:43,545 - INFO - HTTP Request: GET https://cas-bridge.xethub.hf.co/xet-bridge-us/66e81cbcd683a3f4e5291bbf/7a5652df2a86bd1ac6bfd0de4a00fb014360f98669f437fda9a4641947a28520?Expires=1781531741&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jYXMtYnJpZGdlLnhldGh1Yi5oZi5jby94ZXQtYnJpZGdlLXVzLzY2ZTgxY2JjZDY4M2EzZjRlNTI5MWJiZi83YTU2NTJkZjJhODZiZDFhYzZiZmQwZGU0YTAwZmIwMTQzNjBmOTg2NjlmNDM3ZmRhOWE0NjQxOTQ3YTI4NTIwKiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc4MTUzMTc0MX19fV19&Signature=MEUCIQCvbl%7E2-Wjc3CdooxUNYd-yaTCmJKLGgnrOZwjopNvglQIgIj-IjnpcL2S0GZGhDOpq-pmwJg%7EuE-dvLBfmx-hOazY_&Key-Pair-Id=K1LYXO563TGWFU&X-Xet-Cas-Uid=62171e3b6a99db28e0b3159d&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model-00002-of-00004.safetensors%3B+filename%3D%22model-00002-of-00004.safetensors%22%3B&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=cas%2F20260615%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260615T125541Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=8f6d96ec235408f415d79702b720c4cd0cebd15309da2bd4b7346d8589e3037c "HTTP/1.1 200 OK"
+2026-06-15 20:55:44,332 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/a09a35458c702b33eeacc393d103063234e8bc28/model-00004-of-00004.safetensors "HTTP/1.1 302 Found"
+2026-06-15 20:55:44,497 - INFO - HTTP Request: GET https://cas-bridge.xethub.hf.co/xet-bridge-us/66e81cbcd683a3f4e5291bbf/4d520dc8bdd4416c539421314778ea8bae719387b2d14e13dd4dbb3bd2d74018?Expires=1781531741&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jYXMtYnJpZGdlLnhldGh1Yi5oZi5jby94ZXQtYnJpZGdlLXVzLzY2ZTgxY2JjZDY4M2EzZjRlNTI5MWJiZi80ZDUyMGRjOGJkZDQ0MTZjNTM5NDIxMzE0Nzc4ZWE4YmFlNzE5Mzg3YjJkMTRlMTNkZDRkYmIzYmQyZDc0MDE4KiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc4MTUzMTc0MX19fV19&Signature=MEYCIQCvi5v1M6XVBNV4KXv-sAE3P-dh20UnTdA-e5GhBSZe0gIhALtaoEzinTDApk-SnBqFHEVUp304eA%7E1E51M-dCHcNo%7E&Key-Pair-Id=K1LYXO563TGWFU&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model-00003-of-00004.safetensors%3B+filename%3D%22model-00003-of-00004.safetensors%22%3B&X-Xet-Cas-Uid=62171e3b6a99db28e0b3159d&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=cas%2F20260615%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260615T125541Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6c20949a34cf24618a65be495265a0b935c7b4ef74ed8fc7bfb2a14df763018e "HTTP/1.1 200 OK"
+2026-06-15 20:55:44,855 - INFO - HTTP Request: GET https://cas-bridge.xethub.hf.co/xet-bridge-us/66e81cbcd683a3f4e5291bbf/22555b6a3a2093431facfb11807dd591855196ee19b8543dcc05a66d16a39892?Expires=1781531743&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jYXMtYnJpZGdlLnhldGh1Yi5oZi5jby94ZXQtYnJpZGdlLXVzLzY2ZTgxY2JjZDY4M2EzZjRlNTI5MWJiZi8yMjU1NWI2YTNhMjA5MzQzMWZhY2ZiMTE4MDdkZDU5MTg1NTE5NmVlMTliODU0M2RjYzA1YTY2ZDE2YTM5ODkyKiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc4MTUzMTc0M319fV19&Signature=MEQCIB2ULeO1RlzPP54R4l0MjQQO1xEFbkFjulNV2erqphd%7EAiANacu2aAQWe-ElaDDQ6vakWVHP6kilBsX-hGTpzGVkHA__&Key-Pair-Id=K1LYXO563TGWFU&X-Xet-Cas-Uid=62171e3b6a99db28e0b3159d&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model-00004-of-00004.safetensors%3B+filename%3D%22model-00004-of-00004.safetensors%22%3B&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=cas%2F20260615%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260615T125543Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=d4fea96313fffba4455ccf3bbba6eb11acaae44c535b07465ff3414aec74c7f6 "HTTP/1.1 200 OK"
+2026-06-15 22:04:46,853 - ERROR - DoRA Training failed: 'Qwen2ForCausalLM' object has no attribute 'set_submodule'
+2026-06-15 22:04:46,934 - INFO - --- Stage 2: PPO Action Policy Training (Phase 2) ---
+2026-06-15 22:14:49,615 - INFO - === Starting HybridSense Training Pipeline [v1.0] ===
+2026-06-15 22:14:49,615 - INFO - --- Stage 0: Data Preparation ---
+2026-06-15 22:14:49,615 - INFO - Using existing vitals file at data/processed/deep_vitals_aligned.csv
+2026-06-15 22:14:49,615 - INFO - Using existing SFT dataset at data/processed/sft_train_data.jsonl
+2026-06-15 22:14:49,615 - INFO - --- Stage 1: DoRA Fine-Tuning (Phase 1) ---
+2026-06-15 22:14:59,061 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:14:59,726 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 22:15:00,112 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:15:00,257 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-06-15 22:15:01,002 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-06-15 22:15:01,218 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-06-15 22:15:02,004 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct "HTTP/1.1 200 OK"
+2026-06-15 22:15:04,433 - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/json/json.py "HTTP/1.1 200 OK"
+2026-06-15 22:15:06,912 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:15:07,072 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 22:15:08,089 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:15:08,266 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 22:15:25,266 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/generation_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:15:26,450 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/generation_config.json "HTTP/1.1 200 OK"
+2026-06-15 22:15:27,163 - INFO - HTTP Request: GET https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/generation_config.json "HTTP/1.1 200 OK"
+2026-06-15 22:15:27,497 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/custom_generate/generate.py "HTTP/1.1 404 Not Found"
+2026-06-15 22:17:40,355 - ERROR - DoRA Training failed: user is not logged in
+2026-06-15 22:17:40,356 - INFO - --- Stage 2: PPO Action Policy Training (Phase 2) ---
+2026-06-15 22:18:29,570 - INFO - === Starting HybridSense Training Pipeline [v1.0] ===
+2026-06-15 22:18:29,571 - INFO - --- Stage 0: Data Preparation ---
+2026-06-15 22:18:29,571 - INFO - Using existing vitals file at data/processed/deep_vitals_aligned.csv
+2026-06-15 22:18:29,571 - INFO - Using existing SFT dataset at data/processed/sft_train_data.jsonl
+2026-06-15 22:18:29,571 - INFO - --- Stage 1: DoRA Fine-Tuning (Phase 1) ---
+2026-06-15 22:18:32,933 - INFO - HTTP Request: GET https://hf-mirror.com/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-06-15 22:18:33,249 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:18:33,415 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 22:18:34,250 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:18:34,757 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-06-15 22:18:34,894 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-06-15 22:18:35,518 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-06-15 22:18:38,391 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct "HTTP/1.1 200 OK"
+2026-06-15 22:18:40,219 - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/json/json.py "HTTP/1.1 200 OK"
+2026-06-15 22:18:42,762 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:18:42,993 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 22:18:43,302 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:18:43,439 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 22:18:54,720 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/generation_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:18:54,856 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/generation_config.json "HTTP/1.1 200 OK"
+2026-06-15 22:18:55,216 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/custom_generate/generate.py "HTTP/1.1 404 Not Found"
+2026-06-15 22:19:06,699 - ERROR - DoRA Training failed: user is not logged in
+2026-06-15 22:19:06,700 - INFO - --- Stage 2: PPO Action Policy Training (Phase 2) ---
+2026-06-15 22:22:52,484 - INFO - === Starting HybridSense Training Pipeline [v1.0] ===
+2026-06-15 22:22:52,484 - INFO - --- Stage 0: Data Preparation ---
+2026-06-15 22:22:52,484 - INFO - Using existing vitals file at data/processed/deep_vitals_aligned.csv
+2026-06-15 22:22:52,484 - INFO - Using existing SFT dataset at data/processed/sft_train_data.jsonl
+2026-06-15 22:22:52,484 - INFO - --- Stage 1: DoRA Fine-Tuning (Phase 1) ---
+2026-06-15 22:22:53,806 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:22:54,144 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 22:22:55,303 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:22:55,491 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-06-15 22:22:56,634 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-06-15 22:22:56,814 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-06-15 22:22:59,113 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct "HTTP/1.1 200 OK"
+2026-06-15 22:23:00,189 - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/json/json.py "HTTP/1.1 200 OK"
+2026-06-15 22:23:02,630 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:23:02,800 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 22:23:03,128 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:23:03,260 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 22:23:12,189 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/generation_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:23:12,396 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/generation_config.json "HTTP/1.1 200 OK"
+2026-06-15 22:23:13,703 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/custom_generate/generate.py "HTTP/1.1 404 Not Found"
+2026-06-15 22:41:20,522 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:41:20,670 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 22:41:22,070 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:41:22,234 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 22:41:25,499 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:41:25,648 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 22:41:25,967 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:41:26,099 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 22:41:26,780 - INFO - DoRA Training successful. Model saved to models/hybrid-sense-dora_full
+2026-06-15 22:41:26,781 - INFO - --- Stage 2: PPO Action Policy Training (Phase 2) ---
+2026-06-15 22:41:43,485 - WARNING - socket.send() raised exception.
+2026-06-15 22:41:43,485 - WARNING - socket.send() raised exception.
+2026-06-15 22:43:05,778 - INFO - === Starting HybridSense Training Pipeline [v1.0] ===
+2026-06-15 22:43:05,778 - INFO - --- Stage 0: Data Preparation ---
+2026-06-15 22:43:05,778 - INFO - Using existing vitals file at data/processed/deep_vitals_aligned.csv
+2026-06-15 22:43:05,778 - INFO - Using existing SFT dataset at data/processed/sft_train_data.jsonl
+2026-06-15 22:43:05,778 - INFO - --- Stage 1: DoRA Fine-Tuning (Phase 1) ---
+2026-06-15 22:43:06,687 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:43:06,888 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 22:43:07,247 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:43:07,940 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-06-15 22:43:08,093 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-06-15 22:43:08,233 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-06-15 22:43:09,052 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct "HTTP/1.1 200 OK"
+2026-06-15 22:43:10,817 - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/json/json.py "HTTP/1.1 200 OK"
+2026-06-15 22:43:12,796 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:43:12,975 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 22:43:13,841 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:43:13,976 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-15 22:43:28,346 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/generation_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-15 22:43:28,919 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/generation_config.json "HTTP/1.1 200 OK"
+2026-06-15 22:43:29,282 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/custom_generate/generate.py "HTTP/1.1 404 Not Found"
+2026-06-16 00:00:37,665 - INFO - === Starting HybridSense Training Pipeline [v1.0] ===
+2026-06-16 00:00:37,665 - INFO - --- Stage 0: Data Preparation ---
+2026-06-16 00:00:37,665 - INFO - Using existing vitals file at data/processed/deep_vitals_aligned.csv
+2026-06-16 00:00:37,665 - INFO - Using existing SFT dataset at data/processed/sft_train_data.jsonl
+2026-06-16 00:00:37,665 - INFO - --- Stage 1: DoRA Fine-Tuning (Phase 1) ---
+2026-06-16 00:00:41,005 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-16 00:00:41,559 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-16 00:00:42,422 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-16 00:00:42,562 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-06-16 00:00:42,736 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-06-16 00:00:43,043 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-06-16 00:00:43,786 - INFO - HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen2.5-7B-Instruct "HTTP/1.1 200 OK"
+2026-06-16 00:00:44,730 - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/json/json.py "HTTP/1.1 200 OK"
+2026-06-16 00:00:49,850 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-16 00:00:50,442 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-16 00:00:51,290 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-16 00:00:51,552 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-16 00:01:01,067 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/generation_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-16 00:01:01,207 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/generation_config.json "HTTP/1.1 200 OK"
+2026-06-16 00:01:01,505 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/custom_generate/generate.py "HTTP/1.1 404 Not Found"
+2026-06-16 00:44:51,550 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-16 00:44:51,663 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-16 00:44:51,949 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-16 00:44:52,067 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-16 01:29:00,838 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-16 01:29:01,057 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"
+2026-06-16 01:29:01,318 - INFO - HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen2.5-7B-Instruct/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-06-16 01:29:01,727 - INFO - HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen2.5-7B-Instruct/a09a35458c702b33eeacc393d103063234e8bc28/config.json "HTTP/1.1 200 OK"

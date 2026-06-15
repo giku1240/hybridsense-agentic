@@ -1,0 +1,44 @@
+{
+  "os": "Linux-5.15.0-124-generic-x86_64-with-glibc2.35",
+  "python": "CPython 3.12.3",
+  "startedAt": "2026-06-15T14:43:40.150559Z",
+  "args": [
+    "--config",
+    "configs/pipeline_config.yaml"
+  ],
+  "program": "/root/autodl-tmp/project/hybridsense-agentic/src/pipeline.py",
+  "codePath": "src/pipeline.py",
+  "codePathLocal": "src/pipeline.py",
+  "git": {
+    "remote": "https://github.com/giku1240/hybridsense-agentic.git",
+    "commit": "7f4325e0d1d4f94f6d930cd2ea4f67ea6b38e30f"
+  },
+  "email": "gikulou@gmail.com",
+  "root": "/root/autodl-tmp/project/hybridsense-agentic",
+  "host": "autodl-container-d2b249a655-6ed404be",
+  "executable": "/root/miniconda3/bin/python3",
+  "cpu_count": 72,
+  "cpu_count_logical": 144,
+  "gpu": "NVIDIA vGPU-32GB",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "32212254720",
+      "used": "23253520384"
+    }
+  },
+  "memory": {
+    "total": "1081801965568"
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA vGPU-32GB",
+      "memoryTotal": "34351349760",
+      "cudaCores": 10240,
+      "architecture": "Ada",
+      "uuid": "GPU-77e902f2-5ad9-f921-4095-3a1e4252316a"
+    }
+  ],
+  "cudaVersion": "13.0",
+  "writerId": "cw0pzrztrpcsqfhf4qkmk2gc6cotc4xd"
+}
