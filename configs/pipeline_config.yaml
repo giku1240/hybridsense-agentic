@@ -1,0 +1,58 @@
+# PRAA Architecture: Unified Training Pipeline Configuration
+
+# Global Settings
+project_name: "HybridSense-Agentic"
+experiment_version: "v1.0"
+output_base_dir: "artifacts/v1"
+
+# Stage 0: Data Preparation
+data_prep:
+  raw_vitals_path: "data/raw/resilient" # Placeholder
+  demographics_path: "data/raw/demographics.csv" # Placeholder
+  dialogue_dataset_path: "data/processed/dialogues.csv" # Placeholder
+  processed_vitals_path: "data/processed/deep_vitals_aligned.csv"
+  sft_dataset_path: "data/processed/sft_train_data.jsonl"
+  sft_limit: 2000
+
+# Stage 1: DoRA Fine-Tuning (Phase 1)
+dora_training:
+  model_name_or_path: "Qwen/Qwen2.5-7B-Instruct"
+  output_dir: "models/hybrid-sense-dora"
+  ablation_mode: "full" # [full, no_hrv, text_only]
+  
+  # PEFT/DoRA Parameters
+  lora_r: 64
+  lora_alpha: 128
+  lora_dropout: 0.05
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+  use_dora: true  
+
+  # Hyperparameters
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 16
+  learning_rate: 2.0e-4
+  num_train_epochs: 1
+  max_steps: 50 # Set to -1 for full training
+  lr_scheduler_type: "cosine"
+  warmup_ratio: 0.1
+  fp16: true
+  logging_steps: 1
+  save_strategy: "epoch"
+  
+  # Quantization
+  load_in_4bit: false
+  load_in_8bit: false
+
+# Stage 2: PPO Action Policy (Phase 2)
+ppo_training:
+  total_timesteps: 50000
+  learning_rate: 3.0e-4
+  batch_size: 64
+  n_steps: 2048
+  output_path: "models/rl/ppo_jitai_policy"
+  log_dir: "logs/ppo_mental_health/"
+
+# Stage 3: Evaluation
+evaluation:
+  metrics: ["rouge", "bleu", "clinical_adherence", "routing_accuracy"]
+  test_dataset_path: "data/real_splits/kaggle_test_holdout.csv"

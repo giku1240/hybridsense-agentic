@@ -1,4 +1,44 @@
 import numpy as np
+import os
+
+from stable_baselines3 import PPO
+
+class PPOIntervention:
+    """
+    Chapter 5.2: Deep Reinforcement Learning Intervention Policy (PPO).
+    Replaces Thompson Sampling with a trained neural network policy.
+    """
+    def __init__(self, model_path="models/rl/ppo_jitai_policy.zip"):
+        if os.path.exists(model_path):
+            print(f"Loading trained PPO policy from {model_path}...")
+            self.model = PPO.load(model_path)
+        else:
+            print(f"Warning: PPO model not found at {model_path}. Falling back to random policy.")
+            self.model = None
+            
+        self.arms = ["Breathing Exercise", "ACT Grounding", "Sleep Hygiene", "Empathy & Validation"]
+
+    def select_arm(self, physio_state):
+        if self.model:
+            # Prepare observation [HR_Z, HRV_Z, Wakeup_Z]
+            obs = np.array([
+                physio_state.get('hr_z_score', 0),
+                physio_state.get('hrv_z_score', 0),
+                physio_state.get('wakeup_z_score', 0)
+            ], dtype=np.float32)
+            action, _states = self.model.predict(obs, deterministic=True)
+            return action
+        else:
+            return np.random.randint(0, 4)
+
+    def get_intervention_text(self, arm_idx):
+        texts = [
+            "[PROACTIVE JITAI INITIATED] I've noticed your heart rate is slightly elevated. Let's try 3 cycles of box breathing (inhale 4, hold 4, exhale 4).",
+            "[PROACTIVE JITAI INITIATED] Your stress markers (HRV) are showing a dip. Let's try a quick grounding exercise: name 3 things you can see and 2 things you can hear right now.",
+            "[PROACTIVE JITAI INITIATED] Your sleep data indicates significant restlessness. Would you like to review some sleep hygiene tips or try a relaxing visualization?",
+            "[PROACTIVE JITAI INITIATED] I can see your body is going through some stress. I'm here to listen. What's on your mind?"
+        ]
+        return texts[arm_idx]
 
 class ThompsonSamplingIntervention:
     """

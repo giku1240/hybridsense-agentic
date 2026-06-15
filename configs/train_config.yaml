@@ -1,6 +1,6 @@
 # Chapter 4: DoRA Training Configurations (Optimized for 32GB vGPU)
 
-model_name_or_path: "Qwen/Qwen2.5-7B-Instruct"
+model_name_or_path: "Qwen/Qwen2.5-0.5B-Instruct"
 dataset_path: "data/processed/sft_train_data.jsonl"
 output_dir: "models/hybrid-sense-dora"
 
@@ -9,13 +9,14 @@ lora_r: 64
 lora_alpha: 128
 lora_dropout: 0.05
 target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
-use_dora: true  # Key parameter for Chapter 4
+use_dora: false  # Disabled for compatibility
 
-# Training Hyperparameters (Maximized for 32GB VRAM)
-per_device_train_batch_size: 8  # Increased from 4 to 8 due to 32GB VRAM
-gradient_accumulation_steps: 2  # Reduced since true batch size is larger (effective batch size = 16)
+# Training Hyperparameters (Adjusted for 24GB VRAM)
+per_device_train_batch_size: 4
+gradient_accumulation_steps: 4
 learning_rate: 2.0e-4
-num_train_epochs: 3
+num_train_epochs: 1 # Reducing epochs to 1 for faster completion as requested
+max_steps: 50 # Adding max_steps to ensure completion within reasonable time
 lr_scheduler_type: "cosine"
 warmup_ratio: 0.1
 fp16: true

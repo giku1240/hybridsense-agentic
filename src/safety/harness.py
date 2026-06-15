@@ -1,8 +1,11 @@
-# import torch
-# from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from peft import PeftModel
 import re
+import yaml
+import os
 
-from src.safety.rl_policy import ThompsonSamplingIntervention
+from src.safety.rl_policy import PPOIntervention
 
 class SafetySentry:
     """
@@ -68,15 +71,34 @@ class IntentRouter:
         if any(w in text for w in clinical_keywords):
             return "CLINICAL_RAG"             
         return "GENERAL_SUPPORT"
-
 class AgentHarness:
     """
     The Orchestrator. Coordinates Sentry, Router, and Main LLM with Physiological Gating.
     """
-    def __init__(self):
+    def __init__(self, model_path="models/hybrid-sense-dora_full"):
         self.sentry = SafetySentry()
         self.router = IntentRouter()
-        self.rl_policy = ThompsonSamplingIntervention()
+        # Updated to PPO Policy
+        self.rl_policy = PPOIntervention()
+
+        # Load Config
+        with open("configs/train_config.yaml", "r") as f:
+            self.config = yaml.safe_load(f)
+
+        print(f"Loading main LLM ({self.config['model_name_or_path']}) with LoRA adapters...")
+        self.tokenizer = AutoTokenizer.from_pretrained(self.config['model_name_or_path'])
+        base_model = AutoModelForCausalLM.from_pretrained(
+            self.config['model_name_or_path'],
+            torch_dtype=torch.float16,
+            device_map="auto"
+        )
+
+        if os.path.exists(model_path):
+            print(f"Applying LoRA adapters from {model_path}...")
+            self.model = PeftModel.from_pretrained(base_model, model_path)
+        else:
+            print("Warning: LoRA adapters not found. Using base model.")
+            self.model = base_model
 
     def process_query(self, user_text, user_vitals):
         safety_check = self.sentry.scan_text(user_text)
@@ -89,7 +111,22 @@ class AgentHarness:
         elif mode == "PROACTIVE_JITAI":
             return self._jitai_response(user_vitals)
         
-        return mode
+        # Mode is CLINICAL_RAG or GENERAL_SUPPORT
+        return self._generate_response(user_text, user_vitals, mode)
+
+    def _generate_response(self, text, vitals, mode):
+        # Construct prompt with Physiological Gating
+        persona = f"Current Physiology: HR_Z={vitals['hr_z_score']:.1f}, HRV_Z={vitals['hrv_z_score']:.1f}, Wakeup_Z={vitals['wakeup_z_score']:.1f}"
+        prompt = f"System: You are a professional mental health assistant. Mode: {mode}.\n\n{persona}\n\nClient: {text}\n\nAssistant:"
+        
+        inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
+        with torch.no_grad():
+            outputs = self.model.generate(**inputs, max_new_tokens=150, do_sample=True, temperature=0.7)
+        
+        response = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+        # Extract only the assistant's part
+        response = response.split("Assistant:")[-1].strip()
+        return f"[{mode}] {response}"
 
     def _emergency_response(self, text_risk, physio_risk):
         response = "[CRITICAL INTERVENTION] Safety protocol activated. "
@@ -99,7 +136,7 @@ class AgentHarness:
         return response
         
     def _jitai_response(self, user_vitals):
-        # Use RL Policy (Thompson Sampling) to select the best intervention
+        # Use RL Policy (PPO) to select the best intervention
         arm_idx = self.rl_policy.select_arm(user_vitals)
         response = self.rl_policy.get_intervention_text(arm_idx)
         return response
