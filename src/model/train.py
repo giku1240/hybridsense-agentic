@@ -1,4 +1,5 @@
 import os
+import glob
 import torch
 import yaml
 import argparse
@@ -17,9 +18,33 @@ from peft import (
     prepare_model_for_kbit_training
 )
 
-def train(config_dict=None, ablation_mode="full"):
+def find_latest_checkpoint(output_dir):
+    """
+    Scan output_dir for checkpoint-* subdirectories and return the one
+    with the highest step number, or None if no checkpoints exist.
+    """
+    pattern = os.path.join(output_dir, "checkpoint-*")
+    checkpoints = glob.glob(pattern)
+    if not checkpoints:
+        return None
+    # Sort by the numeric step suffix
+    checkpoints = sorted(
+        checkpoints,
+        key=lambda p: int(os.path.basename(p).split("-")[-1])
+    )
+    return checkpoints[-1]
+
+
+def train(config_dict=None, ablation_mode="full", resume_from_checkpoint=None):
     """
     Chapter 4: DoRA Training with Ablation Modes.
+    
+    Args:
+        config_dict: Optional config dict. If None, loads from configs/train_config.yaml.
+        ablation_mode: One of "full", "no_hrv", "text_only".
+        resume_from_checkpoint: Path to a specific checkpoint directory to resume from,
+            or True to auto-detect the latest checkpoint in output_dir, or None/False
+            to start fresh.
     """
     if config_dict is None:
         # Fallback for direct execution
@@ -32,6 +57,25 @@ def train(config_dict=None, ablation_mode="full"):
     output_dir = f"{config['output_dir']}_{ablation_mode}"
     print(f"[{ablation_mode.upper()} MODE] Initializing Training Pipeline...")
     print(f"Target Directory: {output_dir}")
+    
+    # Resolve checkpoint to resume from
+    if resume_from_checkpoint is True:
+        # Auto-detect latest checkpoint in output_dir
+        resume_from_checkpoint = find_latest_checkpoint(output_dir)
+        if resume_from_checkpoint:
+            print(f"[RESUME] Auto-detected checkpoint: {resume_from_checkpoint}")
+        else:
+            print("[RESUME] No existing checkpoint found — starting fresh.")
+            resume_from_checkpoint = None
+    elif resume_from_checkpoint:
+        # Explicit path provided
+        if not os.path.isdir(resume_from_checkpoint):
+            raise FileNotFoundError(
+                f"Checkpoint directory not found: {resume_from_checkpoint}"
+            )
+        print(f"[RESUME] Resuming from specified checkpoint: {resume_from_checkpoint}")
+    else:
+        resume_from_checkpoint = None
 
     # 2. Tokenizer
     tokenizer = AutoTokenizer.from_pretrained(config['model_name_or_path'], trust_remote_code=True)
@@ -126,7 +170,7 @@ def train(config_dict=None, ablation_mode="full"):
     )
 
     print("Trainer ready. Starting optimization...")
-    trainer.train()
+    trainer.train(resume_from_checkpoint=resume_from_checkpoint)
     
     # Save the final LoRA weights
     trainer.model.save_pretrained(output_dir)
@@ -137,6 +181,19 @@ def train(config_dict=None, ablation_mode="full"):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--ablation", type=str, default="full", choices=["full", "no_hrv", "text_only"])
+    parser.add_argument(
+        "--resume_from_checkpoint",
+        type=str,
+        default=None,
+        help=(
+            "Path to a specific checkpoint directory to resume from, "
+            "or 'auto' to automatically find the latest checkpoint in the output directory."
+        )
+    )
     args = parser.parse_args()
-    
+    # Normalize the --resume_from_checkpoint value
+    resume = args.resume_from_checkpoint
+    if resume is not None and resume.lower() == "auto":
+        resume = True   # Signal find_latest_checkpoint() to auto-detect
+
     train(ablation_mode=args.ablation)

@@ -36,7 +36,13 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-def run_pipeline(config_path):
+def run_pipeline(config_path, resume=False):
+    """
+    Args:
+        config_path: Path to pipeline_config.yaml.
+        resume: If True, auto-detect the latest DoRA checkpoint and resume training.
+                If a string path, resume from that specific checkpoint directory.
+    """
     # 1. Load Configuration
     with open(config_path, "r") as f:
         config = yaml.safe_load(f)
@@ -88,8 +94,9 @@ def run_pipeline(config_path):
     if os.path.exists(sft_dataset_path):
         try:
             model_path = run_dora_training(
-                config_dict=dora_config, 
-                ablation_mode=dora_config.get('ablation_mode', 'full')
+                config_dict=dora_config,
+                ablation_mode=dora_config.get('ablation_mode', 'full'),
+                resume_from_checkpoint=resume if resume else None
             )
             logger.info(f"DoRA Training successful. Model saved to {model_path}")
         except Exception as e:
@@ -133,6 +140,22 @@ def run_pipeline(config_path):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="HybridSense Training Pipeline")
     parser.add_argument("--config", type=str, default="configs/pipeline_config.yaml", help="Path to pipeline config")
+    parser.add_argument(
+        "--resume",
+        type=str,
+        nargs="?",
+        const="auto",
+        default=None,
+        help=(
+            "Resume DoRA training from a checkpoint. "
+            "Pass no value (--resume) to auto-detect the latest checkpoint, "
+            "or pass an explicit path (--resume path/to/checkpoint-252)."
+        )
+    )
     args = parser.parse_args()
     
-    run_pipeline(args.config)
+
+    # Convert "auto" string → True so train() calls find_latest_checkpoint()
+    resume_value = True if args.resume == "auto" else args.resume
+
+    run_pipeline(args.config, resume=resume_value)
