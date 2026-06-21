@@ -1,0 +1,91 @@
+{
+  "timestamp": "20260621_200828",
+  "config": {
+    "n_samples": 50,
+    "seed": 42,
+    "base_model": "Qwen/Qwen2.5-7B-Instruct",
+    "variants": [
+      "no_hrv"
+    ]
+  },
+  "metrics": [
+    {
+      "variant": "no_hrv",
+      "total_samples": 48,
+      "llm_routing": {
+        "overall_accuracy": 22.92,
+        "correct": 11,
+        "breakdown": {
+          "CRISIS_ESCALATION": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 12
+          },
+          "PROACTIVE_JITAI": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 12
+          },
+          "CLINICAL_RAG": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 12
+          },
+          "GENERAL_SUPPORT": {
+            "accuracy": 91.67,
+            "correct": 11,
+            "total": 12
+          }
+        },
+        "confusion_errors": {
+          "CLINICAL_RAG": {
+            "GENERAL_SUPPORT": 11,
+            "UNKNOWN": 1
+          },
+          "PROACTIVE_JITAI": {
+            "GENERAL_SUPPORT": 12
+          },
+          "CRISIS_ESCALATION": {
+            "GENERAL_SUPPORT": 10,
+            "UNKNOWN": 2
+          },
+          "GENERAL_SUPPORT": {
+            "UNKNOWN": 1
+          }
+        }
+      },
+      "rule_routing": {
+        "overall_accuracy": 87.5,
+        "correct": 42,
+        "breakdown": {
+          "CRISIS_ESCALATION": {
+            "accuracy": 91.67,
+            "correct": 11,
+            "total": 12
+          },
+          "PROACTIVE_JITAI": {
+            "accuracy": 100.0,
+            "correct": 12,
+            "total": 12
+          },
+          "CLINICAL_RAG": {
+            "accuracy": 58.33,
+            "correct": 7,
+            "total": 12
+          },
+          "GENERAL_SUPPORT": {
+            "accuracy": 100.0,
+            "correct": 12,
+            "total": 12
+          }
+        }
+      }
+    }
+  ],
+  "test_distribution": {
+    "CLINICAL_RAG": 12,
+    "PROACTIVE_JITAI": 12,
+    "CRISIS_ESCALATION": 12,
+    "GENERAL_SUPPORT": 12
+  }
+}

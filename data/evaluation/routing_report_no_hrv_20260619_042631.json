@@ -1,0 +1,29 @@
+{
+  "ablation_mode": "no_hrv",
+  "timestamp": "20260619_042631",
+  "total_tests": 500,
+  "correct_routes": 488,
+  "overall_accuracy_pct": 97.6,
+  "breakdown": {
+    "CRISIS_ESCALATION": {
+      "true_positive": 0,
+      "total_expected": 0,
+      "accuracy_pct": null
+    },
+    "PROACTIVE_JITAI": {
+      "true_positive": 0,
+      "total_expected": 0,
+      "accuracy_pct": null
+    },
+    "CLINICAL_RAG": {
+      "true_positive": 95,
+      "total_expected": 96,
+      "accuracy_pct": 98.96
+    },
+    "GENERAL_SUPPORT": {
+      "true_positive": 393,
+      "total_expected": 404,
+      "accuracy_pct": 97.28
+    }
+  }
+}

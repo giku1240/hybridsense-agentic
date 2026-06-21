@@ -30,11 +30,11 @@ references/*
 # Models and logs
 models/
 logs/
+wandb/
 *.zip
 *.bin
 *.pth
 *.pt
-
 # Data outputs (Processed)
 # Usually we ignore processed data, but if it's small and needed for the next step, we could keep it.
 # For now, let's ignore to be safe and let the user re-generate if needed, 

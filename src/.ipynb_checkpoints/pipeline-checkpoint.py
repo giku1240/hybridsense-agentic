@@ -128,19 +128,26 @@ def run_pipeline(config_path, resume=False, ablation_mode=None):
     # --- STAGE 3: EVALUATION ---
     logger.info("--- Stage 3: System Integration & Evaluation ---")
     try:
-        logger.info("Running optimized high-speed routing evaluation...")
-        import subprocess
-        ablation = dora_config.get('ablation_mode', 'full')
-        cmd = ["python", "src/evaluation/reeval_routing.py", "--variants", ablation, "--n_samples", "50"]
-        logger.info(f"Executing: {' '.join(cmd)}")
+        # Use newly trained model or fallback to default
+        target_model = model_path if model_path else dora_config['output_dir'] + "_" + dora_config['ablation_mode']
+        logger.info(f"Initializing Harness with model: {target_model}")
+        harness = AgentHarness(
+            model_path=target_model,
+            base_model_name=dora_config['model_name_or_path']
+        )
         
-        # Using subprocess to call the optimized routing evaluation
-        result = subprocess.run(cmd, capture_output=False, text=True)
+        # Initialize Evaluator
+        eval_data_path = config['evaluation']['test_dataset_path']
+        evaluator = HybridSenseEvaluator(
+            harness=harness,
+            text_data_path=eval_data_path,
+            physio_data_path=vitals_path,
+            ablation_mode=dora_config.get('ablation_mode', 'full')
+        )
         
-        if result.returncode == 0:
-            logger.info("Evaluation Completed Successfully.")
-        else:
-            logger.error(f"Evaluation failed with exit code {result.returncode}")
+        # Run routing evaluation
+        accuracy = evaluator.evaluate_harness_routing()
+        logger.info(f"Evaluation Completed. Overall Routing Accuracy: {accuracy:.2f}%")
     except Exception as e:
         logger.error(f"Evaluation failed: {e}")
 

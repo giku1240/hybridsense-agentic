@@ -1,0 +1,234 @@
+{
+  "timestamp": "20260621_112824",
+  "config": {
+    "n_samples": 48,
+    "seed": 42,
+    "base_model": "Qwen/Qwen2.5-7B-Instruct",
+    "variants": [
+      "full",
+      "no_hrv",
+      "text_only"
+    ]
+  },
+  "metrics": [
+    {
+      "variant": "full",
+      "total_samples": 48,
+      "llm_routing": {
+        "overall_accuracy": 0.0,
+        "correct": 0,
+        "breakdown": {
+          "CRISIS_ESCALATION": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 12
+          },
+          "PROACTIVE_JITAI": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 12
+          },
+          "CLINICAL_RAG": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 12
+          },
+          "GENERAL_SUPPORT": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 12
+          }
+        },
+        "confusion_errors": {
+          "CLINICAL_RAG": {
+            "UNKNOWN": 12
+          },
+          "PROACTIVE_JITAI": {
+            "UNKNOWN": 12
+          },
+          "CRISIS_ESCALATION": {
+            "UNKNOWN": 12
+          },
+          "GENERAL_SUPPORT": {
+            "UNKNOWN": 12
+          }
+        }
+      },
+      "rule_routing": {
+        "overall_accuracy": 87.5,
+        "correct": 42,
+        "breakdown": {
+          "CRISIS_ESCALATION": {
+            "accuracy": 91.67,
+            "correct": 11,
+            "total": 12
+          },
+          "PROACTIVE_JITAI": {
+            "accuracy": 100.0,
+            "correct": 12,
+            "total": 12
+          },
+          "CLINICAL_RAG": {
+            "accuracy": 58.33,
+            "correct": 7,
+            "total": 12
+          },
+          "GENERAL_SUPPORT": {
+            "accuracy": 100.0,
+            "correct": 12,
+            "total": 12
+          }
+        }
+      }
+    },
+    {
+      "variant": "no_hrv",
+      "total_samples": 48,
+      "llm_routing": {
+        "overall_accuracy": 27.08,
+        "correct": 13,
+        "breakdown": {
+          "CRISIS_ESCALATION": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 12
+          },
+          "PROACTIVE_JITAI": {
+            "accuracy": 83.33,
+            "correct": 10,
+            "total": 12
+          },
+          "CLINICAL_RAG": {
+            "accuracy": 8.33,
+            "correct": 1,
+            "total": 12
+          },
+          "GENERAL_SUPPORT": {
+            "accuracy": 16.67,
+            "correct": 2,
+            "total": 12
+          }
+        },
+        "confusion_errors": {
+          "CLINICAL_RAG": {
+            "UNKNOWN": 7,
+            "GENERAL_SUPPORT": 4
+          },
+          "CRISIS_ESCALATION": {
+            "UNKNOWN": 11,
+            "PROACTIVE_JITAI": 1
+          },
+          "GENERAL_SUPPORT": {
+            "UNKNOWN": 9,
+            "CLINICAL_RAG": 1
+          },
+          "PROACTIVE_JITAI": {
+            "UNKNOWN": 2
+          }
+        }
+      },
+      "rule_routing": {
+        "overall_accuracy": 87.5,
+        "correct": 42,
+        "breakdown": {
+          "CRISIS_ESCALATION": {
+            "accuracy": 91.67,
+            "correct": 11,
+            "total": 12
+          },
+          "PROACTIVE_JITAI": {
+            "accuracy": 100.0,
+            "correct": 12,
+            "total": 12
+          },
+          "CLINICAL_RAG": {
+            "accuracy": 58.33,
+            "correct": 7,
+            "total": 12
+          },
+          "GENERAL_SUPPORT": {
+            "accuracy": 100.0,
+            "correct": 12,
+            "total": 12
+          }
+        }
+      }
+    },
+    {
+      "variant": "text_only",
+      "total_samples": 48,
+      "llm_routing": {
+        "overall_accuracy": 0.0,
+        "correct": 0,
+        "breakdown": {
+          "CRISIS_ESCALATION": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 12
+          },
+          "PROACTIVE_JITAI": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 12
+          },
+          "CLINICAL_RAG": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 12
+          },
+          "GENERAL_SUPPORT": {
+            "accuracy": 0.0,
+            "correct": 0,
+            "total": 12
+          }
+        },
+        "confusion_errors": {
+          "CLINICAL_RAG": {
+            "UNKNOWN": 12
+          },
+          "PROACTIVE_JITAI": {
+            "UNKNOWN": 12
+          },
+          "CRISIS_ESCALATION": {
+            "UNKNOWN": 12
+          },
+          "GENERAL_SUPPORT": {
+            "UNKNOWN": 12
+          }
+        }
+      },
+      "rule_routing": {
+        "overall_accuracy": 87.5,
+        "correct": 42,
+        "breakdown": {
+          "CRISIS_ESCALATION": {
+            "accuracy": 91.67,
+            "correct": 11,
+            "total": 12
+          },
+          "PROACTIVE_JITAI": {
+            "accuracy": 100.0,
+            "correct": 12,
+            "total": 12
+          },
+          "CLINICAL_RAG": {
+            "accuracy": 58.33,
+            "correct": 7,
+            "total": 12
+          },
+          "GENERAL_SUPPORT": {
+            "accuracy": 100.0,
+            "correct": 12,
+            "total": 12
+          }
+        }
+      }
+    }
+  ],
+  "test_distribution": {
+    "CLINICAL_RAG": 12,
+    "PROACTIVE_JITAI": 12,
+    "CRISIS_ESCALATION": 12,
+    "GENERAL_SUPPORT": 12
+  }
+}

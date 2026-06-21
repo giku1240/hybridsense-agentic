@@ -99,9 +99,15 @@ def train(config_dict=None, ablation_mode="full", resume_from_checkpoint=None):
         tokenized_full = tokenizer(full_text, truncation=True, max_length=1024, padding=False)
         
         # Mask the instruction part
-        instruction_ids = tokenizer(instruction, truncation=True, max_length=1024, padding=False)["input_ids"]
-        labels = [-100] * len(instruction_ids) + tokenized_full["input_ids"][len(instruction_ids):]
+        prompt_text = f"{instruction}\n\n"
+        prompt_ids = tokenizer(prompt_text, truncation=True, max_length=1024, padding=False)["input_ids"]
         
+        num_prompt_tokens = len(prompt_ids)
+        if num_prompt_tokens >= len(tokenized_full["input_ids"]):
+            labels = [-100] * len(tokenized_full["input_ids"])
+        else:
+            labels = [-100] * num_prompt_tokens + tokenized_full["input_ids"][num_prompt_tokens:]
+            
         tokenized_full["labels"] = labels
         return tokenized_full
 

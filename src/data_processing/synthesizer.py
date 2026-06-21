@@ -22,6 +22,29 @@ class DatasetSynthesizer:
             return 'depression'
         return 'general'
 
+    def get_route_tag(self, text, row):
+        """Replicates the IntentRouter + SafetySentry logic to assign a route tag."""
+        crisis_keywords = ["suicide", "self-harm", "kill myself", "end it all", "prescribe"]
+        clinical_keywords = ["help", "advice", "symptom", "treatment", "anxious", "sad",
+                             "edge", "stressing", "worrying", "exhausted", "bed"]
+        
+        text_lower = str(text).lower()
+        text_risk = any(w in text_lower for w in crisis_keywords)
+        
+        hr_z = row.get('hr_z_score', 0)
+        hrv_z = row.get('hrv_z_score', 0)
+        wakeup_z = row.get('wakeup_z_score', 0)
+        physio_crisis = hr_z > 3.0
+        physio_jitai = (hrv_z < -2.0 or hr_z > 2.0 or wakeup_z > 2.0)
+        
+        if text_risk or physio_crisis:
+            return "[CRITICAL INTERVENTION]"
+        if physio_jitai and (not text or text == "[SILENT/NO_INPUT]"):
+            return "[PROACTIVE JITAI]"
+        if any(w in text_lower for w in clinical_keywords):
+            return "[CLINICAL RAG]"
+        return "[GENERAL SUPPORT]"
+
     def generate_jitai_prompt(self, row):
         """Generates a proactive intervention based on individualized Z-score deviations."""
         persona = row['clinical_persona']
@@ -74,19 +97,26 @@ class DatasetSynthesizer:
             
             # Match persona based on intent
             if intent == 'anxiety' and not anxiety_personas.empty:
-                persona = anxiety_personas.sample(1).iloc[0]['clinical_persona']
+                persona_row = anxiety_personas.sample(1).iloc[0]
+                persona = persona_row['clinical_persona']
             elif intent == 'depression' and not depression_personas.empty:
-                persona = depression_personas.sample(1).iloc[0]['clinical_persona']
+                persona_row = depression_personas.sample(1).iloc[0]
+                persona = persona_row['clinical_persona']
             else:
-                persona = general_personas.sample(1).iloc[0]['clinical_persona']
+                persona_row = general_personas.sample(1).iloc[0]
+                persona = persona_row['clinical_persona']
             
             # Construct Instruction (Physiological Gating simulation)
             instruction = f"System: You are a professional mental health assistant with physiological gating. Modulate your empathy and clinical depth based on the following physiological state.\n\n{persona}\n\nClient: {row['Context']}"
             
+            # Prepend route tag to output
+            route_tag = self.get_route_tag(row['Context'], persona_row)
+            final_output = f"{route_tag} {row['Response']}"
+            
             sft_data.append({
                 "instruction": instruction,
                 "input": "",
-                "output": row['Response']
+                "output": final_output
             })
 
         # Save to JSONL
